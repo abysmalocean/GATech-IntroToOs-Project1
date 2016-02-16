@@ -32,7 +32,7 @@ static struct option gLongOptions[] = {
   {NULL,            0,                      NULL,             0}
 };
 
-static void Usage() 
+static void Usage()
 {
 	fprintf(stdout, "%s", USAGE);
 }
@@ -85,12 +85,12 @@ static void writecb(void* data, size_t data_len, void *arg)
 }
 
 /* Main ========================================================= */
-int main(int argc, char **argv) 
+int main(int argc, char **argv)
 {
 /* COMMAND LINE OPTIONS ============================================= */
   char *server = "localhost";
   unsigned short port = 8888;
-  char *workload_path = "workload.txt";
+  const char *workload_path = "workload.txt";
 
   int i;
   int option_char = 0;
@@ -103,9 +103,9 @@ int main(int argc, char **argv)
   char local_path[512];
 
   // Parse and set command line arguments
-  while ((option_char = getopt_long(argc, argv, "s:p:w:n:t:h", gLongOptions, NULL)) != -1) 
+  while ((option_char = getopt_long(argc, argv, "s:p:w:n:t:h", gLongOptions, NULL)) != -1)
   {
-    switch (option_char) 
+    switch (option_char)
     {
       case 's': // server
         server = optarg;
@@ -130,7 +130,7 @@ int main(int argc, char **argv)
       case 'h': // help
         Usage();
         exit(0);
-        break;                      
+        break;
       default:
         Usage();
         exit(1);
@@ -194,4 +194,4 @@ int main(int argc, char **argv)
   gfc_global_cleanup();
 
   return 0;
-}  
+}

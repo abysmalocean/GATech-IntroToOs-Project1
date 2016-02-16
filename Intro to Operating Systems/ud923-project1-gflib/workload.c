@@ -12,7 +12,7 @@ static pthread_mutex_t counter_mutex;
 static int counter = 0;
 static int mode = WORKLOAD_SEQ;
 
-int workload_init(char *workload_path) 
+int workload_init(const char *workload_path)
 {
   int i = 0;
   char temp_buf[256];

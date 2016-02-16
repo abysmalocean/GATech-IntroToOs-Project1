@@ -4,11 +4,11 @@
 #define WORKLOAD_SEQ 0
 #define WORKLOAD_RND 1
 
-/* 
+/*
  * Opens the file associated with the input argument
- * and reads in a list of paths to request. 
+ * and reads in a list of paths to request.
  */
-int workload_init(char *workload_path);
+int workload_init(const char *workload_path);
 
 /*
  * Sets the mode.  If WORKLOAD_SEQ, then workload getpath will

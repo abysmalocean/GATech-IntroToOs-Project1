@@ -98,7 +98,7 @@ ssize_t gfs_send(gfcontext_t *ctx, void *data, size_t len)
       ctx->nBytesSent += BytesSent;
       fprintf(stderr, "\nTotalBytesSent: %d\tBytesSentThisSend: %d ", ctx->nBytesSent, BytesSent);
       return BytesSent; 
-    }
+  }
 	return  0;  
 }
 
@@ -189,11 +189,15 @@ void gfserver_serve(gfserver_t *gfs)
         {
         	return;
         }
+ 
         char* pFilePath = gfs_getFilePath(Data);
-        gfs->handlerFunc(&clientConnection, pFilePath, gfs->pHandlerArg);  
+        gfs->handlerFunc(&clientConnection, pFilePath, NULL);  
+ 
         if(clientConnection.nFileLen == clientConnection.nBytesSent)
         {
         	fprintf(stderr, "\nClosed socket"); 
+          clientConnection.nFileLen = 0;  
+          clientConnection.nBytesSent = 0; 
         	close(clientConnection.nClientSocket);  
         }
     }

@@ -31,7 +31,7 @@ ssize_t handler_get(gfcontext_t *ctx, char *path, void* arg){
 		read_len = pread(fildes, buffer, BUFFER_SIZE, bytes_transferred);
 		if (read_len <= 0)
 		{
-			fprintf(stderr, "handle_with_file read error, %zd, %zu, %zu", read_len, bytes_transferred, file_len );
+			fprintf(stderr, "handle_with_file read error, %zd, %zd, %zd", read_len, bytes_transferred, file_len );
 			gfs_abort(ctx);
 			return -1;
 		}
@@ -39,8 +39,8 @@ ssize_t handler_get(gfcontext_t *ctx, char *path, void* arg){
 		write_len = gfs_send(ctx, buffer, read_len);
 		if (write_len != read_len)
 		{
-			//fprintf(stderr,"\nReadLen: %d \tWriteLen: %d", (int)read_len, (int)write_len);			
-			fprintf(stderr, "handle_with_file write error");
+			//fprintf(stderr,"\nReadLen: %d \tWriteLen: %d", (int)read_len, (int)write_len);
+			fprintf(stderr, "handle_with_file write error: %zd/%zd", read_len, write_len);
 			gfs_abort(ctx);
 			return -1;
 		}

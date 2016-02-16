@@ -1,4 +1,5 @@
-CFLAGS := -Wall --std=gnu99 -g -Wno-format-security
+CFLAGS := --std=gnu99 -g -Wno-format-security
+CFLAGS += -Wall -Wextra -Wpedantic
 
 ARCH := $(shell uname)
 ifneq ($(ARCH),Darwin)

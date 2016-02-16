@@ -205,8 +205,8 @@ int gfc_perform(gfcrequest_t *gfr)
   //STEP 2:  receive data back from the Server 
   int numBytesRecv    = 0;   
   int bRunning        = TRUE;
-  while(bRunning)
-  {
+  while(bRunning == TRUE)
+  {      
       numBytesRecv = recv(gfr->nSocket, gfr->pData, 4096, 0);
       if((numBytesRecv == -1) || (numBytesRecv == 0))
       {
@@ -224,7 +224,11 @@ int gfc_perform(gfcrequest_t *gfr)
                   {
                       gfr->nBytesReceived += numBytesRecv;
                       gfr->writefunc(gfr->pData, numBytesRecv, gfr->pFile);    
-                      fprintf(stderr, "\nExiting as Bytes Received: %d is same as FileLen: %d", gfr->nBytesReceived, gfr->nFileLen);
+                      if(gfr->nBytesReceived == gfr->nFileLen)
+                      {
+                         fprintf(stderr, "\nExiting as Bytes Received: %d is same as FileLen: %d", gfr->nBytesReceived, gfr->nFileLen);
+                         bRunning = FALSE;  
+                      }
                   }
               }
               else
@@ -236,10 +240,11 @@ int gfc_perform(gfcrequest_t *gfr)
           {
               gfr->nBytesReceived += numBytesRecv;
               gfr->writefunc(gfr->pData, numBytesRecv, gfr->pFile);    
-              fprintf(stderr, "\nBytes Received: %d\tFile Len: %d", gfr->nBytesReceived, gfr->nFileLen);
+              fprintf(stderr, "\nIn seconds Bytes Received: %d\tFile Len: %d", gfr->nBytesReceived, gfr->nFileLen);
               if(gfr->nBytesReceived == gfr->nFileLen)
               {
-                fprintf(stderr, "\nnBytesReceived: %d\nnFileLen: %d", gfr->nBytesReceived, gfr->nFileLen);
+                fprintf(stderr, "\nnBytesReceived: %d\n\tnFileLen: %d\tbRuning is FALSE", 
+                        gfr->nBytesReceived, gfr->nFileLen);
                 bRunning = FALSE;    
               }
           }

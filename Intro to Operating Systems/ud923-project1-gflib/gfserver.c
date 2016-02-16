@@ -94,9 +94,9 @@ ssize_t gfs_send(gfcontext_t *ctx, void *data, size_t len)
 	
 	if(ctx->nBytesSent < ctx->nFileLen )
 	{
-	  int BytesSent = send(ctx->nClientSocket, data, len, 0); 	
+  	  int BytesSent = send(ctx->nClientSocket, data, len, 0); 	
       ctx->nBytesSent += BytesSent;
-      fprintf(stderr, "\nTotalBytesSent: %d", ctx->nBytesSent);
+      fprintf(stderr, "\nTotalBytesSent: %d\tBytesSentThisSend: %d ", ctx->nBytesSent, BytesSent);
       return BytesSent; 
     }
 	return  0;  
